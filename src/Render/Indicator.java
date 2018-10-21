@@ -1,8 +1,10 @@
+package Render;
+
 public class Indicator {
 
     private int x, y,i;
 
-    Indicator(){
+    public Indicator(){
         x = 200;
         y = 675;
         i = 1;

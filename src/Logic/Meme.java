@@ -54,4 +54,11 @@ public class Meme {
         return(sprite);
     }
 
+    public void damage(int q){
+        this.health -= q;
+    }
+
+    public int getHealth(){
+        return(health);
+    }
 }

@@ -13,7 +13,7 @@ public class CombatMap {
     private Meme enemy;
 
 
-    CombatMap(){
+    public CombatMap(){
         combatBg = ImageLoader.loadImage("/resources/textures/PokeBG.jpg");
         combatP = new CombatPlayer();
         enemy = new Meme((int)(Math.random()*3+1));
