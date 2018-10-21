@@ -6,6 +6,7 @@ public class Game implements Runnable {
 
     private Window window;
     private CombatMap cMap;
+    private Map map;
     private int width, height;
     private String title;
     private boolean running = false;
@@ -18,12 +19,12 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
         this.title = title;
+        this.map = new Map();
 
     }
 
     public void init() {
 
-        testImage = ImageLoader.loadImage("resources/textures/Character Sprite.png");
         window = new Window(height, width, title);
 
 
@@ -42,12 +43,35 @@ public class Game implements Runnable {
             return;
         }
         g = bs.getDrawGraphics();
-        g.clearRect(0,0,width,height);
+        drawMap();
 
         bs.show();
         g.dispose();
     }
 
+    private void drawMap(){
+        Image grass = ImageLoader.loadImage("/resources/textures/grass.png");
+        Image tallGrass = ImageLoader.loadImage("/resources/textures/tallGrass.png");
+
+        bs = window.getCanvas().getBufferStrategy();
+        if(bs == null){
+            window.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+
+        for(int i = 0; i < this.map.getMap().length; i++){
+            for(int j = 0; j < this.map.getMap()[0].length; j++){
+                if(this.map.getMap()[i][j] == 0){
+                    g.drawImage(tallGrass, i*32, j*32, null);
+                }
+
+                else if(this.map.getMap()[i][j] == 1){
+                    g.drawImage(grass, i*32, j*32, null);
+                }
+            }
+        }
+    }
 
 
     public void run() {
@@ -81,4 +105,6 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
     }
+
+
 }
