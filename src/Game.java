@@ -3,8 +3,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Game implements Runnable {
+
     private Window window;
-    private Map map;
     private CombatMap cMap;
     private int width, height;
     private String title;
@@ -25,7 +25,8 @@ public class Game implements Runnable {
 
         testImage = ImageLoader.loadImage("resources/textures/Character Sprite.png");
         window = new Window(height, width, title);
-        map = new Map();
+
+        cMap = new CombatMap();
     }
 
     public void update() {
@@ -41,13 +42,13 @@ public class Game implements Runnable {
             return;
         }
         g = bs.getDrawGraphics();
-
         g.clearRect(0,0,width,height);
-        g.drawRect(500,500,500,50);
-
+        g.drawImage(cMap.getBg(), 0, 0, 1000,1000, null);
         bs.show();
         g.dispose();
     }
+
+
 
     public void run() {
 
