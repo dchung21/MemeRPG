@@ -6,7 +6,7 @@ public class CombatMap {
 
     CombatMap(){
         combatBg = ImageLoader.loadImage("resources/textures/PokeBG.jpg");
-        
+
     }
 
     public BufferedImage getBg(){

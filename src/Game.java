@@ -26,7 +26,7 @@ public class Game implements Runnable {
         testImage = ImageLoader.loadImage("resources/textures/Character Sprite.png");
         window = new Window(height, width, title);
 
-        cMap = new CombatMap();
+
     }
 
     public void update() {
@@ -43,7 +43,7 @@ public class Game implements Runnable {
         }
         g = bs.getDrawGraphics();
         g.clearRect(0,0,width,height);
-        g.drawImage(cMap.getBg(), 0, 0, 1000,1000, null);
+
         bs.show();
         g.dispose();
     }
