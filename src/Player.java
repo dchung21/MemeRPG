@@ -34,4 +34,16 @@ public class Player {
             this.currentX = this.currentX + 32;
     }
 
+    public boolean inCombat(){
+        int i = this.currentX / 32;
+        int j = this.currentY / 32;
+
+        if(Map.MAP[i][j] == 0 && Map.randomEncounter()){
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
 }

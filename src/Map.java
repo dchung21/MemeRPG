@@ -4,7 +4,7 @@ public class Map {
 
     private static final int WIDTH = 32;
     private static final int HEIGHT = 32;
-    private static int[][] MAP = new int[WIDTH][HEIGHT];
+    public static int[][] MAP = new int[WIDTH][HEIGHT];
     public static final Image grass = ImageLoader.loadImage("/resources/textures/grass.png");
     public static final Image tallGrass = ImageLoader.loadImage("/resources/textures/tallGrass.png");
 
@@ -26,10 +26,6 @@ public class Map {
         }
     }
 
-    public int[][] getMap(){
-        return this.MAP;
-    }
-
     public int getWidth(){
         return WIDTH;
     }
@@ -38,5 +34,11 @@ public class Map {
         return HEIGHT;
     }
 
+    public static boolean randomEncounter(){
+        if(Math.random() > 0.6){
+            return true;
+        }
 
+        return false;
+    }
 }

@@ -33,6 +33,8 @@ public class Game implements Runnable, KeyListener {
         window = new Window(height, width, title);
         window.frame.addKeyListener(this);
 
+
+
     }
 
     public void update() {
@@ -57,13 +59,13 @@ public class Game implements Runnable, KeyListener {
 
     private void drawMap(){
 
-        for(int i = 0; i < this.map.getMap().length; i++){
-            for(int j = 0; j < this.map.getMap()[0].length; j++){
-                if(this.map.getMap()[i][j] == 0){
+        for(int i = 0; i < Map.MAP.length; i++){
+            for(int j = 0; j < Map.MAP[0].length; j++){
+                if(Map.MAP[i][j] == 0){
                     g.drawImage(Map.tallGrass, i*32, j*32, null);
                 }
 
-                else if(this.map.getMap()[i][j] == 1){
+                else if(Map.MAP[i][j] == 1){
                     g.drawImage(Map.grass, i*32, j*32, null);
                 }
             }
@@ -118,16 +120,22 @@ public class Game implements Runnable, KeyListener {
         switch(e.getKeyCode()){
             case KeyEvent.VK_W:
                 this.player.moveForward();
+                this.inCombat = this.player.inCombat();
                 break;
             case KeyEvent.VK_S:
                 this.player.moveBackward();
+                this.inCombat = this.player.inCombat();
                 break;
             case KeyEvent.VK_A:
                 this.player.moveLeft();
+                this.inCombat = this.player.inCombat();
                 break;
             case KeyEvent.VK_D:
                 this.player.moveRight();
+                this.inCombat = this.player.inCombat();
         }
+
+
     }
 
     @Override
