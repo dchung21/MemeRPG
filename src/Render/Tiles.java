@@ -1,7 +1,7 @@
 package Render;
 
 import java.awt.*;
-import Render.ImageLoader;
+
 
 public class Tiles {
     public static final int tileSize = 50;
