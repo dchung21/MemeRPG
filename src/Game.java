@@ -1,8 +1,10 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game implements Runnable {
+public class Game implements Runnable, KeyListener {
 
     private Window window;
     private CombatMap cMap;
@@ -14,19 +16,22 @@ public class Game implements Runnable {
     private boolean inCombat = false;
     private BufferStrategy bs;
     private Graphics g;
+    private Player player;
+
+
     public Game(int height, int width, String title) {
 
         this.width = width;
         this.height = height;
         this.title = title;
         this.map = new Map();
-
+        this.player = new Player(this.map.getWidth(), this.map.getHeight());
     }
 
     public void init() {
 
         window = new Window(height, width, title);
-
+        window.frame.addKeyListener(this);
 
     }
 
@@ -42,36 +47,30 @@ public class Game implements Runnable {
             window.getCanvas().createBufferStrategy(3);
             return;
         }
+
         g = bs.getDrawGraphics();
         drawMap();
-
+        g.drawImage(Player.player, this.player.getX(), this.player.getY(), null);
         bs.show();
         g.dispose();
     }
 
     private void drawMap(){
-        Image grass = ImageLoader.loadImage("/resources/textures/grass.png");
-        Image tallGrass = ImageLoader.loadImage("/resources/textures/tallGrass.png");
-
-        bs = window.getCanvas().getBufferStrategy();
-        if(bs == null){
-            window.getCanvas().createBufferStrategy(3);
-            return;
-        }
-        g = bs.getDrawGraphics();
 
         for(int i = 0; i < this.map.getMap().length; i++){
             for(int j = 0; j < this.map.getMap()[0].length; j++){
                 if(this.map.getMap()[i][j] == 0){
-                    g.drawImage(tallGrass, i*32, j*32, null);
+                    g.drawImage(Map.tallGrass, i*32, j*32, null);
                 }
 
                 else if(this.map.getMap()[i][j] == 1){
-                    g.drawImage(grass, i*32, j*32, null);
+                    g.drawImage(Map.grass, i*32, j*32, null);
                 }
             }
         }
     }
+
+
 
 
     public void run() {
@@ -107,4 +106,32 @@ public class Game implements Runnable {
     }
 
 
+    //Keyboard Input Handlers
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()){
+            case KeyEvent.VK_W:
+                this.player.moveForward();
+                break;
+            case KeyEvent.VK_S:
+                this.player.moveBackward();
+                break;
+            case KeyEvent.VK_A:
+                this.player.moveLeft();
+                break;
+            case KeyEvent.VK_D:
+                this.player.moveRight();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }

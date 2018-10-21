@@ -5,7 +5,7 @@ public class Window {
 
 
 
-    JFrame frame;
+    public JFrame frame;
     private int height, width;
     private String title;
     public Canvas canvas;
@@ -40,4 +40,7 @@ public class Window {
         return(canvas);
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
 }
