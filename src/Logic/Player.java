@@ -25,19 +25,19 @@ public class Player {
     }
 
     public void moveForward(){
-            this.currentY = this.currentY - Tiles.tileSize;
+                Map.shift(-1, 0);
     }
 
     public void moveBackward(){
-            this.currentY = this.currentY + Tiles.tileSize;
+        Map.shift(1, 0);;
     }
 
     public void moveLeft(){
-            this.currentX = this.currentX - Tiles.tileSize;
+            Map.shift(0, -1);
         }
 
     public void moveRight(){
-            this.currentX = this.currentX + Tiles.tileSize;
+            Map.shift(0, 1);
     }
 
     public boolean encounter(){

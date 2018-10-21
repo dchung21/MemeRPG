@@ -38,4 +38,17 @@ public class Map {
 
         return false;
     }
+
+    public static void shift(int yOffset, int xOffset){
+
+        for(int i = 1; i < MAP.length - 2; i++){
+            for(int j = 1; j < MAP[2].length - 2; j++){
+                MAP[i][j] = MAP[i + xOffset][j + yOffset];
+            }
+
+        }
+
+
+    }
+
 }
