@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class Window {
 
+
+
     JFrame frame;
     private int height, width;
     private String title;
