@@ -1,13 +1,13 @@
-package Render;
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import Logic.Player;
+import java.util.Scanner;
 
 public class Game implements Runnable, KeyListener {
 
+    private JFrame menu;
     private Window window;
     private CombatMap cMap;
     private Map map;
@@ -19,7 +19,7 @@ public class Game implements Runnable, KeyListener {
     private BufferStrategy bs;
     private Graphics g;
     private Player player;
-
+    private Indicator indicator;
 
     public Game(int height, int width, String title) {
 
@@ -27,17 +27,19 @@ public class Game implements Runnable, KeyListener {
         this.height = height;
         this.title = title;
         this.map = new Map();
-        this.player = new Player(this.map.getMapSize(), this.map.getMapSize());
+        this.player = new Player(this.map.getWidth(), this.map.getHeight());
         this.cMap = new CombatMap();
+        this.indicator = new Indicator();
     }
 
     public void init() {
+
         window = new Window(height, width, title);
         window.frame.addKeyListener(this);
+
     }
 
     public void update() {
-
     }
 
     public void draw() {
@@ -60,6 +62,12 @@ public class Game implements Runnable, KeyListener {
             g.fillRect(100,650, (width-200), 350);
             g.setColor(Color.black);
             g.drawRect(100, 650, width - 200, 350);
+            g.drawRect(indicator.getX(),indicator.getY(),100,40);
+
+            if(cMap.getEnemy().getHealth() <= 0){
+                System.out.println("The wild pokemon has fainted.");
+                inCombat = false;
+            }
         }
 
 
@@ -72,22 +80,26 @@ public class Game implements Runnable, KeyListener {
         for(int i = 0; i < Map.MAP.length; i++){
             for(int j = 0; j < Map.MAP[0].length; j++){
                 if(Map.MAP[i][j] == 0){
-                    g.drawImage(Map.tallGrass, i* Tiles.tileSize, j*Tiles.tileSize, null);
+                    g.drawImage(Map.tallGrass, i*32, j*32, null);
                 }
 
                 else if(Map.MAP[i][j] == 1){
-                    g.drawImage(Map.grass, i*Tiles.tileSize, j*Tiles.tileSize, null);
+                    g.drawImage(Map.grass, i*32, j*32, null);
                 }
             }
         }
     }
 
+
+
+
     public void run() {
 
         init();
         while (running) {
-            update();
+
             draw();
+            update();
         }
 
         stop();
@@ -124,26 +136,41 @@ public class Game implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(!inCombat){
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                this.player.moveForward();
-                this.inCombat = this.player.encounter();
-                break;
-            case KeyEvent.VK_S:
-                this.player.moveBackward();
-                this.inCombat = this.player.encounter();
-                break;
-            case KeyEvent.VK_A:
-                this.player.moveLeft();
-                this.inCombat = this.player.encounter();
-                break;
-            case KeyEvent.VK_D:
-                this.player.moveRight();
-                this.inCombat = this.player.encounter();
+        if(!inCombat) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    this.player.moveForward();
+                    this.inCombat = this.player.encounter();
+                    break;
+                case KeyEvent.VK_S:
+                    this.player.moveBackward();
+                    this.inCombat = this.player.encounter();
+                    break;
+                case KeyEvent.VK_A:
+                    this.player.moveLeft();
+                    this.inCombat = this.player.encounter();
+                    break;
+                case KeyEvent.VK_D:
+                    this.player.moveRight();
+                    this.inCombat = this.player.encounter();
+            }
+        }else{
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_D:
+                    if(indicator.getX() < 300){
+
+                    }
+                    break;
+                case KeyEvent.VK_A:
+                    if(indicator.getX() > 200){
+
+                    }
+                case KeyEvent.VK_ENTER:
+                    indicator.select(cMap);
+                    System.out.println("He got this many hp left: " + cMap.getEnemy().getHealth());
+                }
             }
         }
-    }
 
     @Override
     public void keyReleased(KeyEvent e) {

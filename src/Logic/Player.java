@@ -1,18 +1,13 @@
-package Logic;
-
-import Render.ImageLoader;
-import Render.Map;
-
 import java.awt.*;
 
 public class Player {
 
     private int currentX, currentY;
-    public static final Image player = ImageLoader.loadImage("/resources/textures/ye.jpg").getScaledInstance(50,50, Image.SCALE_SMOOTH);
+    public static final Image player = ImageLoader.loadImage("/resources/textures/ye.jpg");
 
-    public Player(int width, int height){
-        this.currentX = (width / 2) * 50;
-        this.currentY = (height / 2) * 50;
+    Player(int width, int height){
+        this.currentX = (width / 2) * 32;
+        this.currentY = (height / 2) * 32;
     }
 
     public int getX(){
@@ -24,24 +19,24 @@ public class Player {
     }
 
     public void moveForward(){
-            this.currentY = this.currentY - 50;
+            this.currentY = this.currentY - 32;
     }
 
     public void moveBackward(){
-            this.currentY = this.currentY + 50;
+            this.currentY = this.currentY + 32;
     }
 
     public void moveLeft(){
-            this.currentX = this.currentX - 50;
+            this.currentX = this.currentX - 32;
         }
 
     public void moveRight(){
-            this.currentX = this.currentX + 50;
+            this.currentX = this.currentX + 32;
     }
 
     public boolean encounter(){
-        int i = this.currentX / 50;
-        int j = this.currentY / 50;
+        int i = this.currentX / 32;
+        int j = this.currentY / 32;
 
         if(Map.MAP[i][j] == 0 && Map.randomEncounter()){
             return true;

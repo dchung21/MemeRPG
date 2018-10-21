@@ -1,5 +1,3 @@
-package Render;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +10,6 @@ public class Window {
     private String title;
     public Canvas canvas;
 
-
     Window(int height, int width, String title){
         this.height = height;
         this.width = width;
@@ -22,7 +19,6 @@ public class Window {
     }
 
     public void createWindow(){
-
         frame = new JFrame(title);
         frame.setSize(width,height);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -36,13 +32,9 @@ public class Window {
         canvas.setMaximumSize(new Dimension(width,height));
         frame.add(canvas);
         frame.pack();
-
     }
     public Canvas getCanvas(){
         return(canvas);
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
 }

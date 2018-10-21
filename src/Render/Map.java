@@ -1,14 +1,12 @@
-package Render;
-
 import java.awt.*;
 
 public class Map {
 
-    private static final int MAP_SIZE = 20;
-    private static final int HEIGHT = 20;
-    public static int[][] MAP = new int[MAP_SIZE][MAP_SIZE];
-    public static final Image grass = ImageLoader.loadImage("/resources/textures/grass.png").getScaledInstance(Tiles.tileSize,Tiles.tileSize, Image.SCALE_SMOOTH);
-    public static final Image tallGrass = ImageLoader.loadImage("/resources/textures/tallGrass.png").getScaledInstance(Tiles.tileSize,Tiles.tileSize, Image.SCALE_SMOOTH);
+    private static final int WIDTH = 32;
+    private static final int HEIGHT = 32;
+    public static int[][] MAP = new int[WIDTH][HEIGHT];
+    public static final Image grass = ImageLoader.loadImage("/resources/textures/grass.png");
+    public static final Image tallGrass = ImageLoader.loadImage("/resources/textures/tallGrass.png");
 
     Map(){
         generateMap();
@@ -17,7 +15,7 @@ public class Map {
     private void generateMap(){
         for(int i = 0; i < MAP.length; i++){
             for(int j = 0; j < MAP.length; j++){
-                if(Math.random() > 0.98){
+                if(Math.random() > 0.7){
                     MAP[i][j] = 0;
                 }
 
@@ -28,8 +26,12 @@ public class Map {
         }
     }
 
-    public int getMapSize(){
-        return MAP_SIZE;
+    public int getWidth(){
+        return WIDTH;
+    }
+
+    public int getHeight(){
+        return HEIGHT;
     }
 
     public static boolean randomEncounter(){
