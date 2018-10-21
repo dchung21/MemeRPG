@@ -1,3 +1,5 @@
+package Render;
+
 import javax.swing.*;
 import java.awt.*;
 

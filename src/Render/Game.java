@@ -1,8 +1,10 @@
+package Render;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
+import Logic.Player;
 
 public class Game implements Runnable, KeyListener {
 
@@ -25,16 +27,13 @@ public class Game implements Runnable, KeyListener {
         this.height = height;
         this.title = title;
         this.map = new Map();
-        this.player = new Player(this.map.getWidth(), this.map.getHeight());
+        this.player = new Player(this.map.getMapSize(), this.map.getMapSize());
         this.cMap = new CombatMap();
     }
 
     public void init() {
-
         window = new Window(height, width, title);
         window.frame.addKeyListener(this);
-
-
     }
 
     public void update() {
@@ -73,18 +72,15 @@ public class Game implements Runnable, KeyListener {
         for(int i = 0; i < Map.MAP.length; i++){
             for(int j = 0; j < Map.MAP[0].length; j++){
                 if(Map.MAP[i][j] == 0){
-                    g.drawImage(Map.tallGrass, i*32, j*32, null);
+                    g.drawImage(Map.tallGrass, i* Tiles.tileSize, j*Tiles.tileSize, null);
                 }
 
                 else if(Map.MAP[i][j] == 1){
-                    g.drawImage(Map.grass, i*32, j*32, null);
+                    g.drawImage(Map.grass, i*Tiles.tileSize, j*Tiles.tileSize, null);
                 }
             }
         }
     }
-
-
-
 
     public void run() {
 

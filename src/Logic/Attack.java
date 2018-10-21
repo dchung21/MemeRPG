@@ -1,3 +1,5 @@
+package Logic;
+
 public class Attack {
 
     private String name;

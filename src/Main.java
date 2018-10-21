@@ -1,5 +1,7 @@
+import Render.Game;
+
 public class Main {
     public static void main(String args[]){
-        new Game(1024,1024, "Meme Pokemon").start();
+        new Game(1000,1000, "Logic.Meme Pokemon").start();
     }
 }
