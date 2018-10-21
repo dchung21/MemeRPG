@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game implements Runnable {
     private Window window;
@@ -22,6 +23,7 @@ public class Game implements Runnable {
 
     public void init() {
 
+        testImage = ImageLoader.loadImage("resources/textures/Character Sprite.png");
         window = new Window(height, width, title);
         map = new Map();
     }
@@ -30,6 +32,8 @@ public class Game implements Runnable {
 
     }
 
+    private BufferedImage testImage;
+
     public void draw() {
         bs = window.getCanvas().getBufferStrategy();
         if(bs == null){
@@ -37,12 +41,13 @@ public class Game implements Runnable {
             return;
         }
         g = bs.getDrawGraphics();
-        if(!inCombat){
 
-        }else{
-            cMap = new CombatMap();
-        }
+        g.clearRect(0,0,width,height);
+        g.drawImage(testImage,500,500,null);
+        g.drawRect(500,500,40,20);
 
+        bs.show();
+        g.dispose();
     }
 
     public void run() {
