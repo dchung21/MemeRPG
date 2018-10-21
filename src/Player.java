@@ -34,7 +34,7 @@ public class Player {
             this.currentX = this.currentX + 32;
     }
 
-    public boolean inCombat(){
+    public boolean encounter(){
         int i = this.currentX / 32;
         int j = this.currentY / 32;
 

@@ -26,6 +26,7 @@ public class Game implements Runnable, KeyListener {
         this.title = title;
         this.map = new Map();
         this.player = new Player(this.map.getWidth(), this.map.getHeight());
+        this.cMap = new CombatMap();
     }
 
     public void init() {
@@ -34,14 +35,11 @@ public class Game implements Runnable, KeyListener {
         window.frame.addKeyListener(this);
 
 
-
     }
 
     public void update() {
 
     }
-
-    private BufferedImage testImage;
 
     public void draw() {
         bs = window.getCanvas().getBufferStrategy();
@@ -51,8 +49,21 @@ public class Game implements Runnable, KeyListener {
         }
 
         g = bs.getDrawGraphics();
-        drawMap();
-        g.drawImage(Player.player, this.player.getX(), this.player.getY(), null);
+        if(!inCombat) {
+            drawMap();
+            g.drawImage(Player.player, this.player.getX(), this.player.getY(), null);
+
+        }else{
+            g.drawImage(cMap.getBg(),0,0,width,height,null);
+            g.drawImage(cMap.getCp().getMyMeme().getSprite(), 400,450,200,200,null);
+            g.drawImage(cMap.getEnemy().getSprite(), 700, 200, 200, 200 , null);
+            g.setColor(Color.lightGray);
+            g.fillRect(100,650, (width-200), 350);
+            g.setColor(Color.black);
+            g.drawRect(100, 650, width - 200, 350);
+        }
+
+
         bs.show();
         g.dispose();
     }
@@ -117,25 +128,25 @@ public class Game implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()){
+        if(!inCombat){
+        switch(e.getKeyCode()) {
             case KeyEvent.VK_W:
                 this.player.moveForward();
-                this.inCombat = this.player.inCombat();
+                this.inCombat = this.player.encounter();
                 break;
             case KeyEvent.VK_S:
                 this.player.moveBackward();
-                this.inCombat = this.player.inCombat();
+                this.inCombat = this.player.encounter();
                 break;
             case KeyEvent.VK_A:
                 this.player.moveLeft();
-                this.inCombat = this.player.inCombat();
+                this.inCombat = this.player.encounter();
                 break;
             case KeyEvent.VK_D:
                 this.player.moveRight();
-                this.inCombat = this.player.inCombat();
+                this.inCombat = this.player.encounter();
+            }
         }
-
-
     }
 
     @Override
